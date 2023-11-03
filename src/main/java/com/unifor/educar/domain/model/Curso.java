@@ -36,7 +36,7 @@ public class Curso {
     @Enumerated(EnumType.STRING)
     private Titulacao titulacao;
 
-    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MatrizCurricular> matrizes;
 
     public MatrizCurricular getMatrizAtual() {

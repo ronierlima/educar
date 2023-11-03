@@ -30,5 +30,8 @@ public class MatrizCurricular {
     @OneToMany(mappedBy = "matrizCurricular")
     private List<SemestreMatriz> semestres;
 
-
+    public long getTotalDisciplinas() {
+        return semestres.stream()
+                .flatMap(semestre -> semestre.getDisciplinas().stream()).count();
+    }
 }

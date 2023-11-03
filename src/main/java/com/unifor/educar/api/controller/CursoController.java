@@ -1,6 +1,7 @@
 package com.unifor.educar.api.controller;
 
 import com.unifor.educar.domain.model.Curso;
+import com.unifor.educar.domain.model.MatrizCurricular;
 import com.unifor.educar.domain.repository.CursoRepository;
 import com.unifor.educar.domain.service.RegistroCursoService;
 import jakarta.validation.Valid;
@@ -55,5 +56,11 @@ public class CursoController {
 
         registroCursoService.excluir(cursoId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{cursoId}/matrizes")
+    public ResponseEntity<Curso> novaMatrizCurricular(@PathVariable Long cursoId, @Valid @RequestBody MatrizCurricular matriz) {
+
+        return ResponseEntity.ok(registroCursoService.novaMatriz(cursoId, matriz));
     }
 }
