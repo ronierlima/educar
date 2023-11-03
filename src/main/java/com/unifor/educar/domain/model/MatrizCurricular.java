@@ -1,5 +1,6 @@
 package com.unifor.educar.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,14 +19,17 @@ public class MatrizCurricular {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "curso_id")
     private Curso curso;
 
-    private String semestreReferencia;
-
-    private Boolean ativo;
+    private Long ano;
+    private String descricao;
+    private Boolean atual;
 
     @OneToMany(mappedBy = "matrizCurricular")
     private List<SemestreMatriz> semestres;
+
 
 }

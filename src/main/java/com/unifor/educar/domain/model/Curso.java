@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -34,4 +35,15 @@ public class Curso {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Titulacao titulacao;
+
+    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY)
+    private List<MatrizCurricular> matrizes;
+
+    public MatrizCurricular getMatrizAtual() {
+        return this.matrizes.stream()
+                .filter(matriz -> Boolean.TRUE.equals(matriz.getAtual()))
+                .findFirst()
+                .orElse(null);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.unifor.educar.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,14 +11,16 @@ import java.util.List;
 @Setter
 @Entity
 public class SemestreMatriz {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private SemestreMatriz semestreAnterior;
 
+    @Column(name = "numero_semestre")
+    private Long semestre;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "matriz_curricular_id")
     private MatrizCurricular matrizCurricular;
