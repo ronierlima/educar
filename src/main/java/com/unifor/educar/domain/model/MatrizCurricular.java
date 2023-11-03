@@ -24,7 +24,6 @@ public class MatrizCurricular {
     @JoinColumn(name = "curso_id")
     private Curso curso;
 
-    private Long ano;
     private String descricao;
     private Boolean atual;
 
