@@ -34,19 +34,23 @@ public class MatrizCurricular {
     private List<SemestreMatriz> semestres;
 
     public long getTotalDisciplinas() {
+        if (semestres == null) return 0;
 
-        if(semestres == null) return 0;
-        
         return semestres.stream()
-                .flatMap(semestre -> semestre.getDisciplinas().stream()).count();
+                .filter(semestre -> semestre.getDisciplinas() != null)
+                .flatMap(semestre -> semestre.getDisciplinas().stream())
+                .count();
     }
 
     public long getTotalCargaHoraria() {
         if (semestres == null) return 0;
 
         return semestres.stream()
+                .filter(semestre -> semestre.getDisciplinas() != null)
                 .flatMap(semestre -> semestre.getDisciplinas().stream())
+                .filter(disciplina -> disciplina.getCargaHoraria() != null)
                 .mapToLong(Disciplina::getCargaHoraria)
                 .sum();
     }
+
 }

@@ -2,16 +2,12 @@ package com.unifor.educar.domain.service;
 
 import com.unifor.educar.domain.exception.EntidadeNaoEncontradaException;
 import com.unifor.educar.domain.exception.NegocioException;
-import com.unifor.educar.domain.model.Curso;
 import com.unifor.educar.domain.model.MatrizCurricular;
 import com.unifor.educar.domain.model.SemestreMatriz;
-import com.unifor.educar.domain.repository.CursoRepository;
 import com.unifor.educar.domain.repository.MatrizCurricularRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -28,6 +24,10 @@ public class MatrizService {
     @Transactional
     public MatrizCurricular novoSemestre(Long matrizId, SemestreMatriz novaSemestre) {
         MatrizCurricular matriz = buscar(matrizId);
+
+        if (matriz.getSemestres().stream().anyMatch(semestre -> semestre.getSemestre().equals(novaSemestre.getSemestre()))) {
+            throw new NegocioException("Número de semestre duplicado: " + novaSemestre.getSemestre());
+        }
 
         novaSemestre.setMatrizCurricular(matriz);
 

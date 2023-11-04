@@ -1,6 +1,5 @@
 package com.unifor.educar.domain.repository;
 
-import com.unifor.educar.domain.model.Aluno;
 import com.unifor.educar.domain.model.Curso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
