@@ -27,11 +27,26 @@ public class MatrizCurricular {
     private String descricao;
     private Boolean atual;
 
-    @OneToMany(mappedBy = "matrizCurricular")
+    @Column(name = "numero_semestres")
+    private Long numeroSemestres;
+
+    @OneToMany(mappedBy = "matrizCurricular", cascade = CascadeType.ALL)
     private List<SemestreMatriz> semestres;
 
     public long getTotalDisciplinas() {
+
+        if(semestres == null) return 0;
+        
         return semestres.stream()
                 .flatMap(semestre -> semestre.getDisciplinas().stream()).count();
+    }
+
+    public long getTotalCargaHoraria() {
+        if (semestres == null) return 0;
+
+        return semestres.stream()
+                .flatMap(semestre -> semestre.getDisciplinas().stream())
+                .mapToLong(Disciplina::getCargaHoraria)
+                .sum();
     }
 }

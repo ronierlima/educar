@@ -40,7 +40,11 @@ public class Curso {
     private List<MatrizCurricular> matrizes;
 
     public MatrizCurricular getMatrizAtual() {
-        return this.matrizes.stream()
+        if (matrizes == null) {
+            return null;
+        }
+
+        return matrizes.stream()
                 .filter(matriz -> Boolean.TRUE.equals(matriz.getAtual()))
                 .findFirst()
                 .orElse(null);

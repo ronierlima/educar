@@ -59,7 +59,13 @@ public class CursoController {
     }
 
     @PostMapping("/{cursoId}/matrizes")
-    public ResponseEntity<Curso> novaMatrizCurricular(@PathVariable Long cursoId, @Valid @RequestBody MatrizCurricular matriz) {
+    public ResponseEntity<Curso> novaMatrizCurricular(@PathVariable Long cursoId, @RequestBody MatrizCurricular matriz) {
+
+        return ResponseEntity.ok(registroCursoService.novaMatriz(cursoId, matriz));
+    }
+
+    @PostMapping("/{cursoId}/matrizes/{matrizId}/semestres")
+    public ResponseEntity<Curso> novoSemestreq(@PathVariable Long cursoId, @RequestBody MatrizCurricular matriz) {
 
         return ResponseEntity.ok(registroCursoService.novaMatriz(cursoId, matriz));
     }
