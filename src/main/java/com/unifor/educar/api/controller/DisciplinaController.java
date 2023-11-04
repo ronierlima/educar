@@ -2,7 +2,7 @@ package com.unifor.educar.api.controller;
 
 import com.unifor.educar.domain.model.Disciplina;
 import com.unifor.educar.domain.repository.DisciplinaRepository;
-import com.unifor.educar.domain.service.RegistroDisciplinaService;
+import com.unifor.educar.domain.service.DisciplinaService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.List;
 public class DisciplinaController {
 
     private final DisciplinaRepository disciplinaRepository;
-    private final RegistroDisciplinaService registroCursoService;
+    private final DisciplinaService registroCursoService;
 
     @GetMapping
     public List<Disciplina> listar() {
