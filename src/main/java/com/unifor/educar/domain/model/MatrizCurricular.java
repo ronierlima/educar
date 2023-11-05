@@ -30,9 +30,9 @@ public class MatrizCurricular {
     @Column(name = "numero_semestres")
     private Long numeroSemestres;
 
-    @OneToMany(mappedBy = "matrizCurricular", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "matrizCurricular", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SemestreMatriz> semestres;
-
+    
     public long getTotalDisciplinas() {
         if (semestres == null) return 0;
 
