@@ -1,4 +1,4 @@
-package com.unifor.educar.api.web;
+package com.unifor.educar.core.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
