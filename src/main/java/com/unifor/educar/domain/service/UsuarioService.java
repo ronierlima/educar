@@ -62,6 +62,7 @@ public class UsuarioService {
                 .withClaim("usuario_id", usuarioEncontrado.getId())
                 .withClaim("usuario_nome", usuarioEncontrado.getNome())
                 .withClaim("roles", papeis)
+                .withClaim("curso_id", usuarioEncontrado.getCurso().getId())
                 .sign(algorithm);
 
     }

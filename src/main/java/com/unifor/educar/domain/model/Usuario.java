@@ -31,6 +31,9 @@ public class Usuario {
     @NotBlank
     private String senha;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Curso curso;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "usuario_papel", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "papel_id"))
     private List<Papel> papeis;
