@@ -2,8 +2,10 @@ package com.unifor.educar.api.controller;
 
 import com.unifor.educar.domain.model.Curso;
 import com.unifor.educar.domain.model.MatrizCurricular;
+import com.unifor.educar.domain.model.Papel;
 import com.unifor.educar.domain.model.Usuario;
 import com.unifor.educar.domain.repository.CursoRepository;
+import com.unifor.educar.domain.repository.PapelRepository;
 import com.unifor.educar.domain.repository.UsuarioRepository;
 import com.unifor.educar.domain.service.CursoService;
 import com.unifor.educar.domain.service.UsuarioService;
@@ -22,16 +24,11 @@ public class UsuarioController {
 
     private final UsuarioService usuarioServices;
     private final UsuarioRepository usuarioRepository;
-
+    private final PapelRepository papelRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Usuario usuario) {
-        try {
-            return ResponseEntity.ok(usuarioServices.login(usuario));
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    public String login(@RequestBody Usuario usuario) {
+       return usuarioServices.login(usuario);
     }
 
     @GetMapping
@@ -43,6 +40,11 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.CREATED)
     public Usuario adicionar(@Valid @RequestBody Usuario usuario) {
         return usuarioServices.salvar(usuario);
+    }
+
+    @GetMapping("/papeis")
+    public List<Papel> listarPapeis() {
+        return papelRepository.findAll();
     }
 
 }

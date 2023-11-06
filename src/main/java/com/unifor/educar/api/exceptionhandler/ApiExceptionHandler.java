@@ -1,6 +1,7 @@
 package com.unifor.educar.api.exceptionhandler;
 
 import com.unifor.educar.domain.exception.EntidadeNaoEncontradaException;
+import com.unifor.educar.domain.exception.NaoAutorizadoException;
 import com.unifor.educar.domain.exception.NegocioException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -51,15 +52,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
-    @ExceptionHandler(EntidadeNaoEncontradaException.class)
-    public ProblemDetail handleEntidadeNaoEncontrada(EntidadeNaoEncontradaException e) {
-        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
-        problemDetail.setTitle(e.getMessage());
-        problemDetail.setType(URI.create("https://educar.ronierlima.dev/erros/nao-encontrado"));
-
-        return problemDetail;
-    }
-
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ProblemDetail handleDataIntegrity(DataIntegrityViolationException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
@@ -69,6 +61,24 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ProblemDetail handleEntidadeNaoEncontrada(EntidadeNaoEncontradaException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle(e.getMessage());
+        problemDetail.setType(URI.create("https://educar.ronierlima.dev/erros/nao-encontrado"));
+
+        return problemDetail;
+    }
+
+
+    @ExceptionHandler(NaoAutorizadoException.class)
+    public ProblemDetail handleNaoAutorizado(NaoAutorizadoException e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        problemDetail.setTitle(e.getMessage());
+        problemDetail.setType(URI.create("https://educar.ronierlima.dev/erros/nao-autorizado"));
+
+        return problemDetail;
+    }
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleGenericException(Exception e) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
