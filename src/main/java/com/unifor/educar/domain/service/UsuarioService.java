@@ -39,10 +39,8 @@ public class UsuarioService {
 
         Usuario usuarioEncontrado = buscarPeloEmail(usuario.getEmail());
 
-        var passwordMatches = this.passwordEncoder.matches(usuario.getPassword(), usuarioEncontrado.getPassword());
-
-        if (!passwordMatches) {
-            throw new AuthenticationException();
+        if (!passwordEncoder.matches(usuario.getSenha(), usuarioEncontrado.getSenha())) {
+            throw new AuthenticationException("email/senha incorretos");
         }
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
@@ -63,8 +61,8 @@ public class UsuarioService {
                     throw new NegocioException("Já existe um usuário cadastrado com esse email");
                 });
 
-        var password = this.passwordEncoder.encode(usuario.getPassword());
-        usuario.setPassword(password);
+        var password = this.passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(password);
 
         return usuarioRepository.save(usuario);
 

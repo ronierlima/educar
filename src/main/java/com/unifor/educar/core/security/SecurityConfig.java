@@ -4,6 +4,7 @@ package com.unifor.educar.core.security;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +24,8 @@ public class SecurityConfig {
                     auth
                             .requestMatchers("/disciplinas").permitAll()
                             .requestMatchers("/cursos").permitAll()
-                            .requestMatchers("/auth/company").permitAll();
+                            .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/usuarios/login").permitAll();
 
                     auth.anyRequest().authenticated();
                 })
@@ -32,7 +34,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

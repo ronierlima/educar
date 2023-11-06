@@ -69,4 +69,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleGenericException(Exception e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        problemDetail.setTitle("Ocorreu um erro interno no servidor");
+        problemDetail.setType(URI.create("https://educar.ronierlima.dev/erros/erro-interno"));
+
+        return problemDetail;
+    }
+
 }

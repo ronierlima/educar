@@ -1,5 +1,6 @@
 package com.unifor.educar.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,6 +10,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,9 +31,10 @@ public class Usuario {
     private String email;
 
     @Length(min = 6, max = 100)
-    private String password;
+    @NotBlank
+    private String senha;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Papel papel;
+    @ManyToMany
+    @JoinTable(name = "usuario_papel", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "papel_id"))
+    private Set<Papel> papeis;
 }
